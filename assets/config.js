@@ -23,7 +23,7 @@ const BUTTONS = {
   reply_markup: JSON.stringify({
     inline_keyboard: [
       [{ text: 'Set Password', callback_data: '/setpas' }, { text: 'Change Password', callback_data: '/changepas' }],
-      [{ text: 'Delete Password', callback_data: '/deletepas' }]
+      [{ text: 'Delete Password', callback_data: '/deletepas' },{text:'Show Password',callback_data:'/showpas'}]
     ]
   })
 };

@@ -67,6 +67,7 @@ bot.on('text', txt => {
       connection.query(`UPDATE passwords SET password='${data.pass}' WHERE telegram_id='${data.id}' && name='${data.name}'`, (err, res) => {
         if (err) {
           bot.sendMessage(chatId, 'I couldn\'t change your passwords.Please try again.', BUTTONS);
+        return;
         }
         bot.sendMessage(chatId, 'I have changed your password', BUTTONS);
       });
@@ -83,9 +84,20 @@ bot.on('text', txt => {
       bot.sendMessage(chatId, 'I have just deleted the password.');
     });
     filter = '';
+  } else if(filter === 'showPass') {
+        data.name = text;
+        connection.query(`SELECT \`password\` FROM passwords WHERE telegram_id='${data.id}' && name='${data.name}'`,function(err,res){
+            if(err){
+                 bot.sendMessage(chatId,'I couldn\' find your password.Do you want to add it?',BUTTONS);
+            return;
+            }
+            data.pass = res[0].password;
+            bot.sendMessage(chatId,`Your password is ${data.pass}`);
+        });
   } else {
     bot.sendMessage(chatId, 'Unknown command!');
     bot.sendMessage(chatId, 'Here are all the commands', BUTTONS);
+    filter = '';
   }
   updateUser(chatId, txt.date);
 });
@@ -97,11 +109,15 @@ bot.on('callback_query', res => {
     bot.sendMessage(id, 'Ok,how shall we call this password?');
     filter = 'setName';
   } else if (msg === '/changepas') {
-    bot.sendMessage(id, 'Write the name of password you want to change');
+    bot.sendMessage(id, 'Send me the name of password you want to change');
     filter = 'changeName';
   } else if (msg === '/deletepas') {
-    bot.sendMessage(id, 'Write the name of password you want to delete');
+    bot.sendMessage(id, 'Send me the name of password you want to delete');
     filter = 'deleteName';
+  } else if(msg === '/showpas')
+  {
+      bot.sendMessage(id,'Send me the name of password');
+      filter = 'showPass';
   }
 
 });
