@@ -1,0 +1,19 @@
+{
+  "name": "passsaver",
+  "version": "1.0.0",
+  "description": "It is a telegram bot to save your passwords.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "Ziya Karimli",
+  "license": "ISC",
+  "dependencies": {
+    "mysql2": "^2.3.3",
+    "node-telegram-bot-api": "^0.54.0",
+    "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "eslint": "^8.3.0"
+  }
+}
