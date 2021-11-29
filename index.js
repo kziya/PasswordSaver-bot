@@ -8,7 +8,6 @@ let filter = '';
 // Set commands
 bot.setMyCommands(SETCOMMANDS);
 
-
 const  data = {
   id: 0,
   name: '',
